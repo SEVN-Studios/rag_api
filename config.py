@@ -269,12 +269,16 @@ elif VECTOR_DB_TYPE == VectorDBType.ATLAS_MONGO:
         )
         ATLAS_SEARCH_INDEX = MONGO_VECTOR_COLLECTION
         COLLECTION_NAME = MONGO_VECTOR_COLLECTION
+
+    DATABASE = get_env_variable("DATABASE", None)
+
     vector_store = get_vector_store(
         connection_string=ATLAS_MONGO_DB_URI,
         embeddings=embeddings,
         collection_name=COLLECTION_NAME,
         mode="atlas-mongo",
         search_index=ATLAS_SEARCH_INDEX,
+        database=DATABASE
     )
 else:
     raise ValueError(f"Unsupported vector store type: {VECTOR_DB_TYPE}")
